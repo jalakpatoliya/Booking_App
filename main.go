@@ -38,6 +38,7 @@ func main()  {
 	fmt.Printf("Bookings type: %T \n",bookings)
 	fmt.Printf("Bookings array: %v \n",bookings)
 	fmt.Printf("Bookings[0] value: %v \n",bookings[0])
+	fmt.Printf("Bookings array length: %v \n",len(bookings))
 
 	fmt.Printf("Hi, Thanks %v %v for booking %v tickets, you will receive confirmation mail on your mail id: %v soon\n",
 	 firstName,lastName,userTickets,email)
