@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 var conferenceName string = "Go Conference"
@@ -41,6 +42,9 @@ func main()  {
 
 		// book tickets
 		bookTickets(firstName,lastName,email, userTickets)
+		
+		// send tickets on new thread using go
+		go sendTickets(userTickets,firstName,lastName,email )
 
 		// get firstNames of users
 		firstNames := getFirstNames()
@@ -110,4 +114,14 @@ func bookTickets(firstName string,lastName string,email string,userTickets uint)
 
 	fmt.Printf("Hi, Thanks %v %v for booking %v tickets, you will receive confirmation mail on your mail id: %v soon\n",
 	firstName,lastName,userTickets,email)
+}
+
+func sendTickets(userTickets uint,firstName string, lastName string, email string)  {
+	// simulating time delay
+	time.Sleep(10*time.Second)
+
+	var tickets = fmt.Sprintf("%v tickets for %v %v",userTickets,firstName,lastName)
+	fmt.Println("################")
+	fmt.Printf("Sending %v to email %v\n", tickets,email)
+	fmt.Println("################")
 }
