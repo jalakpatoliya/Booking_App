@@ -17,7 +17,7 @@ func main()  {
 	var lastName string
 	var email string
 	var userTickets uint
-	var bookings [50] string 
+	var bookings [] string 
 	
 	// Take user details:
 	fmt.Println("Enter your first name: ")
@@ -32,13 +32,13 @@ func main()  {
 	fmt.Println("Enter number of tickets you want to book: ")
 	fmt.Scan(&userTickets)
 
-	bookings[0] = firstName + " " + lastName
+	bookings = append(bookings, firstName + " " + lastName)
 	remainingTickets = remainingTickets - userTickets
 
 	fmt.Printf("Bookings type: %T \n",bookings)
-	fmt.Printf("Bookings array: %v \n",bookings)
+	fmt.Printf("Bookings slice: %v \n",bookings)
 	fmt.Printf("Bookings[0] value: %v \n",bookings[0])
-	fmt.Printf("Bookings array length: %v \n",len(bookings))
+	fmt.Printf("Bookings slice length: %v \n",len(bookings))
 
 	fmt.Printf("Hi, Thanks %v %v for booking %v tickets, you will receive confirmation mail on your mail id: %v soon\n",
 	 firstName,lastName,userTickets,email)
