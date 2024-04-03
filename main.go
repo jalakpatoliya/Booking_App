@@ -19,27 +19,31 @@ func main()  {
 	var userTickets uint
 	var bookings [] string 
 	
-	// Take user details:
-	fmt.Println("Enter your first name: ")
-	fmt.Scan(&firstName)
-
-	fmt.Println("Enter your last name: ")
-	fmt.Scan(&lastName)
-
-	fmt.Println("Enter your email address: ")
-	fmt.Scan(&email)
-
-	fmt.Println("Enter number of tickets you want to book: ")
-	fmt.Scan(&userTickets)
-
-	bookings = append(bookings, firstName + " " + lastName)
-	remainingTickets = remainingTickets - userTickets
-
-	fmt.Printf("Bookings type: %T \n",bookings)
-	fmt.Printf("Bookings slice: %v \n",bookings)
-	fmt.Printf("Bookings[0] value: %v \n",bookings[0])
-	fmt.Printf("Bookings slice length: %v \n",len(bookings))
-
-	fmt.Printf("Hi, Thanks %v %v for booking %v tickets, you will receive confirmation mail on your mail id: %v soon\n",
-	 firstName,lastName,userTickets,email)
+	for  {
+		// Take user details:
+		fmt.Println("Enter your first name: ")
+		fmt.Scan(&firstName)
+	
+		fmt.Println("Enter your last name: ")
+		fmt.Scan(&lastName)
+	
+		fmt.Println("Enter your email address: ")
+		fmt.Scan(&email)
+	
+		fmt.Println("Enter number of tickets you want to book: ")
+		fmt.Scan(&userTickets)
+	
+		bookings = append(bookings, firstName + " " + lastName)
+		remainingTickets = remainingTickets - userTickets
+	
+		fmt.Printf("Bookings type: %T \n",bookings)
+		fmt.Printf("Bookings slice: %v \n",bookings)
+		fmt.Printf("Bookings[0] value: %v \n",bookings[0])
+		fmt.Printf("Bookings slice length: %v \n",len(bookings))
+	
+		fmt.Printf("Hi, Thanks %v %v for booking %v tickets, you will receive confirmation mail on your mail id: %v soon\n",
+		firstName,lastName,userTickets,email)
+	
+		fmt.Printf("This are all your bookings: %v",bookings)
+	}
 }
