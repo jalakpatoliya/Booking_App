@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
@@ -17,32 +18,25 @@ type UserData struct {
 	noOfTickets uint
 }
 
+var wg = sync.WaitGroup{}
+
 func main()  {
 
 	// greeting users
 	greetUsers() 
 
-	
-	for  {
-		// Take user input
-		firstName,lastName,email, userTickets := getUserInputs()
+	// Take user input
+	firstName,lastName,email, userTickets := getUserInputs()
 
-		// Validate user inputs
-		isValidName,isValidEmail,isValidTicketNumber := validateUserInputs(firstName,lastName,email,userTickets)
+	// Validate user inputs
+	isValidName,isValidEmail,isValidTicketNumber := validateUserInputs(firstName,lastName,email,userTickets)
 
-		if !isValidEmail || !isValidName || !isValidTicketNumber{
-			fmt.Println("Your input is invalid pls correct.")
-			continue
-		}
-
-		if ( userTickets > remainingTickets ){
-			fmt.Printf("We only have %v tickets remaining, you cant book %v tickets\n",remainingTickets,userTickets)
-			continue
-		}
+	if isValidEmail && isValidName && isValidTicketNumber {
 
 		// book tickets
 		bookTickets(firstName,lastName,email, userTickets)
 		
+		wg.Add(1)
 		// send tickets on new thread using go
 		go sendTickets(userTickets,firstName,lastName,email )
 
@@ -55,10 +49,22 @@ func main()  {
 		
 		if remainingTickets == 0 {
 			fmt.Println("Our conference booking is booked out, come again next year.")
-			break
+			// break
+		}
+
+	} else {
+		if !isValidEmail || !isValidName || !isValidTicketNumber{
+			fmt.Println("Your input is invalid pls correct.")
+			// continue
+		}
+
+		if ( userTickets > remainingTickets ){
+			fmt.Printf("We only have %v tickets remaining, you cant book %v tickets\n",remainingTickets,userTickets)
+			// continue
 		}
 	}
 
+	wg.Wait()
 }
 
 func greetUsers()  {
@@ -124,4 +130,6 @@ func sendTickets(userTickets uint,firstName string, lastName string, email strin
 	fmt.Println("################")
 	fmt.Printf("Sending %v to email %v\n", tickets,email)
 	fmt.Println("################")
+
+	wg.Done()
 }
